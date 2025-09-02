@@ -1,81 +1,84 @@
-# Projeto-AWS (AWS-Lambda + SQS + DynamoDB + NodeJS)
+# AWS-Project (AWS-Lambda + SQS + DynamoDB + NodeJS)
 
-Projeto de aprendizado onde uma API POST em NodeJS recebe um payload de uma transação (idempotencyId, amount, type: credit /debit).
+Learning project where a POST API in NodeJS receives a transaction payload (idempotencyId, amount, type: credit/debit).
 
-Essa rota executa uma função que coloca a transação em uma AWS SQS (fila), usando SDK da AWS.
+This route executes a function that places the transaction in an AWS SQS (queue), using the AWS SDK.
 
-Junto, uma função AWS Lambda conectada nessa SQS que pegua cada mensagem e salva num banco de dados AWS DynamoDB.
+Along with it, an AWS Lambda function connected to this SQS picks up each message and saves it into an AWS DynamoDB database.
 
-Foi criado um script de teste para criar 100 transações diferentes e fazer a requisição POST.
+A test script was created to generate 100 different transactions and make the POST request.
 
-Foi feita uma tela simples usando Next.JS que exibe as transações salvas no DynamoDB, a partir de uma rota GET.
+A simple page was built using Next.JS that displays the transactions saved in DynamoDB through a GET route.
 
-Link para o front-end: https://github.com/RenatoSouzaAN/Projeto-Aprendizado-AWS-Frontend
+Link to the front-end: https://github.com/RenatoSouzaAN/Projeto-Aprendizado-AWS-Frontend
 
-## Parte backend do projeto
+## Backend part of the project
 
-Backend do Projeto
+Project Backend
 
-Esta parte do projeto consiste em arquivos essenciais para o backend.
-Arquivos Principais
+This part of the project consists of essential files for the backend.
+Main Files
 
-    App.js
+  App.js
 
-    Este arquivo contém a lógica principal da aplicação backend, utilizando o framework Express para lidar com solicitações HTTP e a biblioteca AWS SDK para interagir com os serviços da AWS.
+      This file contains the main logic of the backend application, using the Express framework to handle HTTP requests and the AWS SDK library to interact with AWS services.
 
-        Funcionalidades:
-            Implementa uma rota POST ("/transaction") para receber transações e enviá-las para a fila do SQS.
-            Configuração do cliente AWS SQS para enviar mensagens.
+      Features:
+            Implements a POST route ("/transaction") to receive transactions and send them to the SQS queue.
+            Configures the AWS SQS client to send messages.
 
-        Instruções de Uso:
-            Certifique-se de ter as dependências instaladas executando npm install.
-            Inicie o backend com o comando node App.js.
+      Usage Instructions:
+            Make sure to have the dependencies installed by running npm install.
+            Start the backend with the command node App.js.
 
-        Solução de Problemas:
-            Se encontrar problemas relacionados à configuração da AWS, verifique se as credenciais estão corretas no arquivo App.js.
-            Certifique-se de que o serviço SQS esteja configurado corretamente na AWS.
+      Troubleshooting:
+            If you encounter AWS configuration issues, check that the credentials in App.js are correct.
+            Ensure that the SQS service is properly configured in AWS.
 
-    testScript.js
+testScript.js
 
-    Este script realiza testes de integração, simulando transações enviadas para o backend.
+    This script performs integration tests, simulating transactions sent to the backend.
 
-        Objetivo:
-            Gera transações aleatórias e as envia para o backend para testar o fluxo.
+        Purpose:
+            Generates random transactions and sends them to the backend to test the flow.
 
-        Instruções de Execução:
-            Antes de executar o script, verifique se o backend está em execução.
-            Execute o script com o comando node testScript.js.
+        Execution Instructions:
+            Before running the script, make sure the backend is running.
+            Run the script with the command node testScript.js.
 
-        Relatórios de Teste:
-            Os resultados dos testes serão exibidos no console.
+        Test Reports:
+            Test results will be displayed in the console.
 
-    index.mjs
+  index.mjs
 
-    Este arquivo é a entrada principal para a função AWS Lambda. Ele recebe mensagens da fila SQS e as salva no DynamoDB.
+    This file is the main entry point for the AWS Lambda function. It receives messages from the SQS queue and saves them in DynamoDB.
 
-        Funcionalidades:
-            Conecta-se à fila SQS e salva transações no DynamoDB.
-            Utiliza a biblioteca AWS SDK para interagir com o DynamoDB.
+        Features:
+            Connects to the SQS queue and saves transactions in DynamoDB.
+            Uses the AWS SDK library to interact with DynamoDB.
 
-        Configuração:
-            Certifique-se de que as credenciais AWS e as configurações de região estejam corretas.
+        Configuration:
+            Make sure AWS credentials and region settings are correct.
 
-        Instruções de Implantação:
-            Empacote os arquivos comprimidos no diretório "teste" para implantação no AWS Lambda.
-            Configure a função Lambda para ser acionada pela fila SQS.
+        Deployment Instructions:
+            Package the compressed files in the "teste" directory for deployment in AWS Lambda.
+            Configure the Lambda function to be triggered by the SQS queue.
 
-Testes
 
-O script de teste testScript.js envia transações simuladas para o backend e exibe os resultados no console.
-Solução de Problemas
+Tests
 
-    Credenciais AWS:
-        Verifique se as credenciais AWS no arquivo App.js estão corretas.
-    Configuração SQS:
-        Certifique-se de que a fila SQS esteja configurada corretamente na AWS.
+The test script testScript.js sends simulated transactions to the backend and displays the results in the console.
 
-Informações Adicionais
+Troubleshooting
 
-    Estrutura do Projeto:
-        Certifique-se de que a estrutura do projeto esteja organizada conforme mencionado no README.
-        O diretório "teste" contém os arquivos compactados para implantação no AWS Lambda.
+    AWS Credentials:
+        Verify that the AWS credentials in App.js are correct.
+
+    SQS Configuration:
+        Ensure that the SQS queue is properly configured in AWS.
+
+Additional Information
+
+    Project Structure:
+        Make sure the project structure is organized as described in the README.
+        The "teste" directory contains the compressed files for AWS Lambda deployment.
